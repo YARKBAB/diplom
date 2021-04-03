@@ -3,34 +3,30 @@ html
         style
             include ./page.css
     body
-        h1 Hellow world
+        h2 Записи !{f}-!{t} из !{s}
         table
             tr
-                th Номер заказа
-                th Дата заказа
-                th Дата доставки
-                th Способ доставки
-                th Продажи
-                th Количество
-                th Скидка
-                th Прибыль
-                th Скорость доставки
-                th Приоритет заказа
+                each key in k
+                    th= key
             each obj in d
                 tr
-                    td= obj["Номер заказа"]
-                    td= obj["Дата заказа"]
-                    td= obj["Дата доставки"]
-                    td= obj["Способ доставки"]
-                    td= obj["Продажи"]
-                    td= obj["Количество"]
-                    td= obj["Скидка"]
-                    td= obj["Прибыль"]
-                    td= obj["Скорость доставки"]
-                    td= obj["Приоритет заказа"]
+                    each key in k
+                        td= obj[key]
 
         button#prev prev
-        button#next next
+        if shownext
+            button#next next
+        else
+            button#next(style="display : none;") do not press me
+       
+
+        h2 Сменить таблицу
+
+        button#btorder Заказы
+        button#btclient Клиенты
+        button#btlocation Адреса
+        button#btproduct Продукты
+        
 
         script 
             include ./page.js

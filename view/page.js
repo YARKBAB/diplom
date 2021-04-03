@@ -4,6 +4,14 @@ let page;
 page = getParameterByName('page');
 if(!page) page = 0;
 
+const DATATYPES = [ "order", "client", "location", "product" ];
+
+let type;
+type = getParameterByName('type');
+if(!type || !DATATYPES.includes(type)) type = "order";
+
+document.getElementById(`bt${type}`).style.display = 'none';
+
 document.getElementById('next').onclick = () => {
     console.log("next =>>>")
     ++page;
@@ -19,9 +27,18 @@ document.getElementById('prev').onclick = () => {
     reloadme();
 }
 
+for(let bttypes of DATATYPES)
+{
+    document.getElementById(`bt${bttypes}`).onclick = () => {
+        type = bttypes;
+        page = 0;
+        reloadme();
+    }
+}
+
 function reloadme()
 {
-    location.href = `/?page=${page}`;
+    location.href = `/?page=${page}&type=${type}`;
 }
 
 function getParameterByName(name, url = window.location.href) {
