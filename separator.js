@@ -61,6 +61,7 @@ async function separate()
            "Cтрана" : obj["Страна"],
            "Мировой рынок" : obj["Мировой рынок"],
            "Рынок" : obj["Рынок"],
+           "ClientID" : order["ClientID"]
          });
 
         order["ProductsID"] = adddistinct(products,{

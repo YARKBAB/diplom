@@ -1,0 +1,36 @@
+html
+    head
+        style
+            include ./page.css
+    body
+        h1 Hellow world
+        table
+            tr
+                th Номер заказа
+                th Дата заказа
+                th Дата доставки
+                th Способ доставки
+                th Продажи
+                th Количество
+                th Скидка
+                th Прибыль
+                th Скорость доставки
+                th Приоритет заказа
+            each obj in d
+                tr
+                    td= obj["Номер заказа"]
+                    td= obj["Дата заказа"]
+                    td= obj["Дата доставки"]
+                    td= obj["Способ доставки"]
+                    td= obj["Продажи"]
+                    td= obj["Количество"]
+                    td= obj["Скидка"]
+                    td= obj["Прибыль"]
+                    td= obj["Скорость доставки"]
+                    td= obj["Приоритет заказа"]
+
+        button#prev prev
+        button#next next
+
+        script 
+            include ./page.js
