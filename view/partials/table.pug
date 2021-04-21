@@ -1,0 +1,12 @@
+mixin createtable(keys,data)
+    table
+        tr
+            each key in keys
+                th= key
+        each obj in data
+            tr
+                each key in keys
+                    td= obj[key]
+                if more
+                    td
+                        button(onclick=`location.href = "${obj.more}";`) Детали

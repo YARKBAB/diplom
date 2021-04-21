@@ -1,17 +1,11 @@
+include ./partials/table.pug
 html
     head
         style
             include ./page.css
     body
         h2 Записи !{f}-!{t} из !{s}
-        table
-            tr
-                each key in k
-                    th= key
-            each obj in d
-                tr
-                    each key in k
-                        td= obj[key]
+        +createtable(k,d)
 
         button#prev prev
         if shownext

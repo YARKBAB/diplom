@@ -44,4 +44,70 @@ function getcount(base,querry)
     return mapper.countDocuments(querry);
 }
 
-module.exports = { init, getfrom, getcount };
+function getuser(id) 
+{
+    let objectid;
+    try
+    {
+        objectid = new ObjectID(id);
+    }
+    catch(ex)
+    {
+        return null;
+    } 
+
+    return _client.findOne({ _id : objectid });
+}
+
+const userorderparams = [
+    "Номер заказа",
+    "Дата заказа",
+    "Дата доставки",
+    "Способ доставки",
+    "Номер продукта",
+    "Наименование продукта"
+];
+
+async function getuserorders(user)
+{
+    let orders = await _order.find({ ClientID : user._id }).toArray();
+    let full = []; 
+    for(let o of orders)
+    {
+        let product = await _product.findOne({_id : o.ProductsID });
+        let merged = Object.assign({},product,o);
+        let result = {};
+        for(let key of userorderparams) result[key] = merged[key];
+        full.push(result);
+    }
+
+    return full;
+}
+
+function getuserlocations(user)
+{
+    return _location.find({ ClientID : user._id }).toArray();
+}
+
+async function getfullorder(id)
+{
+    let objectid;
+    try
+    {
+        objectid = new ObjectID(id);
+    }
+    catch(ex)
+    {
+        return null;
+    } 
+
+    let order = await _order.findOne({ _id : objectid });
+
+    let user = await _client.findOne({ _id : order.ClientID });
+    let location = await _location.findOne({ _id : order.LocationID });
+    let product = await _product.findOne({ _id : order.ProductsID });
+
+    return { order, user, location, product };
+}
+
+module.exports = { init, getfrom, getcount, getuser, getuserorders, getuserlocations, getfullorder };

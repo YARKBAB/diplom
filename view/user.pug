@@ -1,0 +1,16 @@
+include ./partials/table.pug
+html 
+    head 
+    body 
+        h1= user["Имя клиента"] 
+        p Информация о клиенте
+        ul 
+            li <b>Номер клиента</b> !{user["Номер клиента"]}
+            li <b>Тип клиента</b> !{user["Номер клиента"]}
+
+        h2 Заказы пользователя
+        +createtable(okeys,odata)
+             
+
+        h2 Локации пользователя
+        +createtable(lkeys,ldata)
